@@ -21,8 +21,8 @@
           <el-col :span="12">
             <el-form-item label="是否父类" prop="isParent">
               <el-select v-model="itemForm.isParent" placeholder="请选择" @change="showParentSelect">
-                <el-option v-for="item in booleanList" :key="item.dictionarySeq" :label="item.dictionaryName"
-                           :value="item.dictionarySeq">
+                <el-option v-for="item in booleanList" :key="item.value" :label="item.label"
+                           :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -60,7 +60,10 @@
     data() {
       return {
         itemForm: {},
-        booleanList: [],
+        booleanList: [
+          { value: 20001, label: '是' },
+          { value: 20002, label: '否' }
+        ],
         parentList: [],
         loading: false,
         parentLoading: false,
@@ -80,9 +83,9 @@
       }
     },
     created() {
-      this.getBooleanList()
     },
     methods: {
+      // 详情页初始化
       detailInit(row) {
         this.$store.dispatch('selectByIdDictionary', row).then(response => {
           this.itemForm = response.data
@@ -91,22 +94,21 @@
           this.addDialogVisible = true
         })
       },
+      // 新建页初始化
       initItemInfo() {
-        if (this.$refs['itemForm'] !== undefined) {
+        this.itemForm = {}
+        if (this.$refs['itemForm']) {
           this.$refs['itemForm'].resetFields()
           this.parentSelectShow = false
         }
         this.addDialogVisible = true
       },
+      // 关闭弹出窗
       closeDialog() {
         this.addDialogVisible = false
         this.$emit('getData')
       },
-      getBooleanList() {
-        this.$store.dispatch('selectChildrenByNameDictionary', { dictionaryName: '布尔值' }).then(response => {
-          this.booleanList = response.data
-        })
-      },
+      // 显示/隐藏父类显示select
       showParentSelect(checked) {
         if (checked === 20002) {
           this.parentSelectShow = true
@@ -115,6 +117,7 @@
           this.parentSelectShow = false
         }
       },
+      // 获取父类列表
       getParentList() {
         this.parentLoading = true
         this.$store.dispatch('selectDictionary', { isParent: 20001 }).then(response => {
@@ -124,6 +127,7 @@
           console.log('no')
         })
       },
+      // 保存/修改详情
       saveItemInfo() {
         this.$refs['itemForm'].validate(valid => {
           if (valid) {

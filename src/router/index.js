@@ -41,7 +41,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/authority/role',
     name: 'Authority',
-    meta: { title: '权限管理' },
+    meta: { title: '权限管理', icon: 'authority' },
     children: [{
       path: 'role',
       name: 'Role',
@@ -54,7 +54,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/menus/setting',
     name: 'Menus',
-    meta: { title: '目录管理' },
+    meta: { title: '目录管理', icon: 'menus' },
     children: [{
       path: 'setting',
       name: 'MenusSetting',
@@ -67,12 +67,12 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/user/online',
     name: 'User',
-    meta: { title: '用户管理' },
+    meta: { title: '用户管理', icon: 'user' },
     children: [{
       path: 'online',
       name: 'Online',
       component: () => import('@/views/user/online/index'),
-      meta: { title: '在线用户', icon: 'menus' }
+      meta: { title: '在线用户', icon: 'user' }
     }]
   },
   {
@@ -80,12 +80,12 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/dictionary/index',
     name: 'Dictionary',
-    meta: { title: '字典表' },
+    meta: { title: '字典表', icon: 'dictionary' },
     children: [{
       path: 'index',
       name: 'DictionaryIndex',
       component: () => import('@/views/dictionary/index'),
-      meta: { title: '字典表', icon: 'menus' }
+      meta: { title: '字典表', icon: 'dictionary' }
     }]
   },
   { path: '*', redirect: '/404', hidden: true }

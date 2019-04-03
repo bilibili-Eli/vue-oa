@@ -23,7 +23,7 @@
         </div>
         <el-card style="width: 100%;margin-top:30px;border: 1px solid rgba(0, 0, 0, 0.2);  border-radius: 5px;"
                  shadow="never">
-          <el-table :data="tableChildren" style="width: 100%; text-align:center">
+          <el-table :data="tableChildren" :default-sort="{prop: 'dictionarySeq', order: 'ascending'}">
             <el-table-column prop="dictionaryName" label="字典属性" align="center"></el-table-column>
             <el-table-column prop="dictionarySeq" label="属性编号" align="center"></el-table-column>
             <el-table-column label="操作" align="center">
@@ -33,7 +33,6 @@
                            @click="deleteItem(scope.row)"></el-button>
               </template>
             </el-table-column>
-            <el-table-column prop="remark" label="说明" align="center"></el-table-column>
           </el-table>
         </el-card>
       </el-main>
