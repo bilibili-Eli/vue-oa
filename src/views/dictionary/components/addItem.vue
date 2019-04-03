@@ -61,8 +61,8 @@
       return {
         itemForm: {},
         booleanList: [
-          { value: 20001, label: '是' },
-          { value: 20002, label: '否' }
+          { value: 0, label: '是' },
+          { value: 1, label: '否' }
         ],
         parentList: [],
         loading: false,
@@ -89,7 +89,7 @@
       detailInit(row) {
         this.$store.dispatch('selectByIdDictionary', row).then(response => {
           this.itemForm = response.data
-          this.itemForm.isParent === 20001 ? this.parentSelectShow = false : this.parentSelectShow = true
+          this.itemForm.isParent === 0 ? this.parentSelectShow = false : this.parentSelectShow = true
           this.getParentList()
           this.addDialogVisible = true
         })
@@ -110,17 +110,17 @@
       },
       // 显示/隐藏父类显示select
       showParentSelect(checked) {
-        if (checked === 20002) {
+        if (checked === 1) {
           this.parentSelectShow = true
           this.getParentList()
-        } else if (checked === 20001) {
+        } else if (checked === 0) {
           this.parentSelectShow = false
         }
       },
       // 获取父类列表
       getParentList() {
         this.parentLoading = true
-        this.$store.dispatch('selectDictionary', { isParent: 20001 }).then(response => {
+        this.$store.dispatch('selectDictionary', { isParent: 0 }).then(response => {
           this.parentList = response.data
           this.parentLoading = false
         }).catch(() => {

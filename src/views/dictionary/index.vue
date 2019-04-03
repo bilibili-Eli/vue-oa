@@ -37,7 +37,7 @@
         </el-card>
       </el-main>
       <!-- 右侧弹出框 -->
-      <addItem ref="addItem" :type="type" @getData="getData({ isParent: 20001 })"></addItem>
+      <addItem ref="addItem" :type="type" @getData="getData({ isParent: 0 })"></addItem>
       <!-- 右侧弹出框-结束 -->
     </el-container>
   </div>
@@ -61,7 +61,7 @@
       }
     },
     mounted() {
-      this.getData({ isParent: 20001 })
+      this.getData({ isParent: 0 })
     },
     methods: {
       // 添加字典数据
@@ -82,25 +82,21 @@
           type: 'warning',
           center: true
         }).then(() => {
-          this.$store.dispatch('removeOperation', row).then(response => {
+          this.$store.dispatch('removeDictionary', row).then(response => {
             if (response.code === 0) {
-              Message.success('删除成功')
-            } else {
-              Message.error('删除失败')
+              Message.success(response.msg)
+              this.getData({ parentId: row.parentId })
             }
-            this.setData()
           }).catch(() => {
             console.log('no')
           })
-        }).catch(() => {
-          Message.info('已取消删除')
         })
       },
       // 获取数据字典
       getData(val) {
         this.loading = true
         this.$store.dispatch('selectDictionary', val).then(response => {
-          if (val.isParent) {
+          if (val.isParent === 0) {
             this.tableData = response.data
             this.getData({ parentId: response.data[0].dictionaryId })
           } else if (val.parentId) {

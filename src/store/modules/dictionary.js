@@ -1,4 +1,4 @@
-import { selectAll, selectById, selectChildrenByName, insert, update } from '@/api/dictionary'
+import { selectAll, selectById, selectChildrenByName, insert, update, remove } from '@/api/dictionary'
 import { Message } from 'element-ui'
 
 const dictionary = {
@@ -58,6 +58,19 @@ const dictionary = {
     updateDictionary({ commit }, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response)
+          } else {
+            Message.error(response.msg)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    removeDictionary({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        remove(data).then(response => {
           if (response.code === 0) {
             resolve(response)
           } else {

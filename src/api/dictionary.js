@@ -39,3 +39,11 @@ export function update(data) {
     data: data
   })
 }
+
+export function remove(data) {
+  return request({
+    url: '/dictionary/delete',
+    method: 'post',
+    data: data
+  })
+}
