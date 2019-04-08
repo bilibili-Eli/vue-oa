@@ -66,6 +66,7 @@
           remarks: '这是目录设置'
         }
       ]
+      // 获取全部目录列表
       this.$store.dispatch('selectMenus', {}).then(response => {
         this.treeData = response.data
       })
@@ -73,7 +74,7 @@
     methods: {
       filterNode(value, data) {
         if (!value) return true
-        return data.label.indexOf(value) !== -1
+        return data.title.indexOf(value) !== -1
       }
     }
   }
