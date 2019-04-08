@@ -72,6 +72,7 @@
       })
     },
     methods: {
+      // 模糊搜索
       filterNode(value, data) {
         if (!value) return true
         return data.title.indexOf(value) !== -1
