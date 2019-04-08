@@ -42,7 +42,7 @@
         treeData: [],
         defaultProps: {
           children: 'children',
-          label: 'label'
+          label: 'title'
         }
       }
     },
@@ -66,24 +66,9 @@
           remarks: '这是目录设置'
         }
       ]
-      this.treeData = [
-        {
-          label: '首页',
-          children: []
-        },
-        {
-          label: '权限管理',
-          children: [{
-            label: '角色设置'
-          }]
-        },
-        {
-          label: '目录管理',
-          children: [{
-            label: '目录配置'
-          }]
-        }
-      ]
+      this.$store.dispatch('selectMenus', {}).then(response => {
+        this.treeData = response.data
+      })
     },
     methods: {
       filterNode(value, data) {

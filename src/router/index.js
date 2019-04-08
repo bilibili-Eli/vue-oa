@@ -82,7 +82,7 @@ export const constantRouterMap = [
     name: 'Dictionary',
     meta: { title: '字典表', icon: 'dictionary' },
     children: [{
-      path: 'index',
+      path: '/index',
       name: 'DictionaryIndex',
       component: () => import('@/views/dictionary/index'),
       meta: { title: '字典表', icon: 'dictionary' }
