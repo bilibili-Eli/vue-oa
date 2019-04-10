@@ -1,4 +1,4 @@
-import { selectAll } from '@/api/menus'
+import { selectAll, selectChildAndParent } from '@/api/menus'
 import { Message } from 'element-ui'
 
 const menus = {
@@ -6,6 +6,19 @@ const menus = {
     selectMenus({ commit }, data) {
       return new Promise((resolve, reject) => {
         selectAll(data).then(response => {
+          if (response.code === 0) {
+            resolve(response)
+          } else {
+            Message.error(response.msg)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    selectMenusChildAndParent({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectChildAndParent(data).then(response => {
           if (response.code === 0) {
             resolve(response)
           } else {

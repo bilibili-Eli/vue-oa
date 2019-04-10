@@ -7,3 +7,11 @@ export function selectAll(data) {
     data: data
   })
 }
+
+export function selectChildAndParent(data) {
+  return request({
+    url: '/menus/selectChildAndParent',
+    method: 'post',
+    data: data
+  })
+}
