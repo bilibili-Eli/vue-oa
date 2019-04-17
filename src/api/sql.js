@@ -7,3 +7,27 @@ export function select(data) {
     data: data
   })
 }
+
+export function update(data) {
+  return request({
+    url: '/sql/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function insert(data) {
+  return request({
+    url: '/sql/insert',
+    method: 'post',
+    data: data
+  })
+}
+
+export function remove(data) {
+  return request({
+    url: '/sql/delete',
+    method: 'post',
+    data: data
+  })
+}
