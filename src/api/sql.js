@@ -31,3 +31,11 @@ export function remove(data) {
     data: data
   })
 }
+
+export function selectSchemata(data) {
+  return request({
+    url: '/sql/selectSchemata',
+    method: 'post',
+    data: data
+  })
+}

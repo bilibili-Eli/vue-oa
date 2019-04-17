@@ -10,6 +10,7 @@
         <el-input v-model="sqlForm.sql" type="textarea" autosize placeholder="请输入SQL"/>
       </el-form-item>
       <el-form-item>
+        <el-button type="primary">SQL创建工具</el-button>
         <el-button :loading="loading" type="primary" @click="onSubmit">获取内容</el-button>
         <el-button type="primary" @click="clear('info')">清除结果</el-button>
         <el-button type="primary" @click="clear('all')">重置</el-button>
@@ -35,6 +36,13 @@
       </el-table>
       <pre v-show="!showType">{{ info }}</pre>
     </el-card>
+    <!--    <el-tree :data="data" :props="defaultProps">-->
+    <!--      <span slot-scope="{ node, data }" class="custom-tree-node">-->
+    <!--        <svg-icon v-if="data.children === undefined" icon-class="table" class="svg-table"/>-->
+    <!--        <svg-icon v-else icon-class="schema" class="svg-schema"/>-->
+    <!--        <span>{{ node.label }}</span>-->
+    <!--      </span>-->
+    <!--    </el-tree>-->
   </div>
 </template>
 
@@ -102,16 +110,25 @@
         columnList: [],
         showType: true,
         loading: false
+        // tree控件
+        // data: [],
+        // defaultProps: {
+        //   children: 'children',
+        //   label: 'schemaName'
+        // }
       }
     },
     created() {
+      // this.$store.dispatch('getSchemata', {}).then(response => {
+      //   this.data = response.data
+      // })
     },
     methods: {
       onSubmit() {
-        this.clear('info')
-        this.loading = true
         this.$refs['sqlForm'].validate((valid) => {
           if (valid) {
+            this.clear('info')
+            this.loading = true
             switch (this.sqlForm.type) {
               case 'select':
                 this.$store.dispatch('selectSql', this.sqlForm).then(response => {
@@ -185,5 +202,13 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+
+  .svg-table {
+    fill: #409EFF !important;
+  }
+
+  .svg-schema {
+    fill: green !important;
   }
 </style>

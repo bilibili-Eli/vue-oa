@@ -1,4 +1,4 @@
-import { select, update, insert, remove } from '@/api/sql'
+import { select, update, insert, remove, selectSchemata } from '@/api/sql'
 import { Message } from 'element-ui'
 
 const user = {
@@ -54,6 +54,20 @@ const user = {
             Message.error(response.msg)
           }
           resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getSchemata({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectSchemata(data).then(response => {
+          if (response.code === 0) {
+            Message.success(response.msg)
+          } else {
+            Message.error(response.msg)
+          }
+          resolve(response)
         }).catch(error => {
           reject(error)
         })
