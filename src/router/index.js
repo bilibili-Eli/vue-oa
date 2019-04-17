@@ -82,10 +82,23 @@ export const constantRouterMap = [
     name: 'Dictionary',
     meta: { title: '字典表', icon: 'dictionary' },
     children: [{
-      path: '/index',
+      path: 'index',
       name: 'DictionaryIndex',
       component: () => import('@/views/dictionary/index'),
       meta: { title: '字典表', icon: 'dictionary' }
+    }]
+  },
+  {
+    path: '/sql',
+    component: Layout,
+    redirect: '/sql/index',
+    name: 'Sql',
+    meta: { title: '数据库维护', icon: 'dictionary' },
+    children: [{
+      path: 'index',
+      name: 'SqlIndex',
+      component: () => import('@/views/sql/edit/index'),
+      meta: { title: '数据库管理', icon: 'dictionary' }
     }]
   },
   { path: '*', redirect: '/404', hidden: true }

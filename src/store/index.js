@@ -4,6 +4,7 @@ import app from './modules/app'
 import dictionary from './modules/dictionary'
 import user from './modules/user'
 import menus from './modules/menus'
+import sql from './modules/sql'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
     app,
     user,
     menus,
-    dictionary
+    dictionary,
+    sql
   },
   getters
 })
