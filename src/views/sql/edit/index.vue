@@ -36,13 +36,13 @@
       </el-table>
       <pre v-show="!showType">{{ info }}</pre>
     </el-card>
-    <!--    <el-tree :data="data" :props="defaultProps">-->
-    <!--      <span slot-scope="{ node, data }" class="custom-tree-node">-->
-    <!--        <svg-icon v-if="data.children === undefined" icon-class="table" class="svg-table"/>-->
-    <!--        <svg-icon v-else icon-class="schema" class="svg-schema"/>-->
-    <!--        <span>{{ node.label }}</span>-->
-    <!--      </span>-->
-    <!--    </el-tree>-->
+    <el-tree :data="data" :props="defaultProps">
+      <span slot-scope="{ node, data }" class="custom-tree-node">
+        <svg-icon v-if="data.children === undefined" icon-class="table" class="svg-table"/>
+        <svg-icon v-else icon-class="schema" class="svg-schema"/>
+        <span>{{ node.label }}</span>
+      </span>
+    </el-tree>
   </div>
 </template>
 
@@ -109,19 +109,19 @@
         tableData: [],
         columnList: [],
         showType: true,
-        loading: false
+        loading: false,
         // tree控件
-        // data: [],
-        // defaultProps: {
-        //   children: 'children',
-        //   label: 'schemaName'
-        // }
+        data: [],
+        defaultProps: {
+          children: 'children',
+          label: 'schemaName'
+        }
       }
     },
     created() {
-      // this.$store.dispatch('getSchemata', {}).then(response => {
-      //   this.data = response.data
-      // })
+      this.$store.dispatch('getSchemata', {}).then(response => {
+        this.data = response.data
+      })
     },
     methods: {
       onSubmit() {
