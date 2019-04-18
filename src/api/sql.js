@@ -39,3 +39,11 @@ export function selectSchemata(data) {
     data: data
   })
 }
+
+export function selectColumnByTable(data) {
+  return request({
+    url: '/sql/selectColumnByTable',
+    method: 'post',
+    data: data
+  })
+}

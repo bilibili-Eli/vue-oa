@@ -10,7 +10,7 @@
         <el-input v-model="sqlForm.sql" type="textarea" autosize placeholder="请输入SQL"/>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">SQL创建工具</el-button>
+        <el-button type="primary" @click="$refs.create.init()">SQL创建工具</el-button>
         <el-button :loading="loading" type="primary" @click="onSubmit">获取内容</el-button>
         <el-button type="primary" @click="clear('info')">清除结果</el-button>
         <el-button type="primary" @click="clear('all')">重置</el-button>
@@ -36,25 +36,21 @@
       </el-table>
       <pre v-show="!showType">{{ info }}</pre>
     </el-card>
-    <el-tree :data="data" :props="defaultProps">
-      <span slot-scope="{ node, data }" class="custom-tree-node">
-        <svg-icon v-if="data.children === undefined" icon-class="table" class="svg-table"/>
-        <svg-icon v-else icon-class="schema" class="svg-schema"/>
-        <span>{{ node.label }}</span>
-      </span>
-    </el-tree>
+    <create ref="create" @getSql="getSql"></create>
   </div>
 </template>
 
 <script>
   import { array_remove_repeat } from '@/utils/auth'
+  import create from './components/create'
 
   export default {
     name: 'SqlIndex',
+    components: { create },
     data() {
       const validateSql = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('sql不能为空'))
+          callback(new Error('SQL不能为空'))
         }
         const type = value.substring(0, 6).toLowerCase()
         if (type.search('select') === 0) {
@@ -80,7 +76,7 @@
           callback()
         } else {
           if (value.length > 6) {
-            callback(new Error('请输入正确的sql语句'))
+            callback(new Error('请输入正确的SQL语句'))
           } else {
             callback()
           }
@@ -109,19 +105,8 @@
         tableData: [],
         columnList: [],
         showType: true,
-        loading: false,
-        // tree控件
-        data: [],
-        defaultProps: {
-          children: 'children',
-          label: 'schemaName'
-        }
+        loading: false
       }
-    },
-    created() {
-      this.$store.dispatch('getSchemata', {}).then(response => {
-        this.data = response.data
-      })
     },
     methods: {
       onSubmit() {
@@ -184,6 +169,9 @@
             this.columnList = []
             break
         }
+      },
+      getSql(val) {
+        this.sqlForm.sql = val
       }
     }
   }
@@ -201,7 +189,7 @@
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
-    width: 50%;
+    width: 100%;
   }
 
   .svg-table {
